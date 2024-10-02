@@ -1,45 +1,45 @@
+import { CDN_URL, STAR} from "../utils/constants";
+
 const ResturantCard = (props) => {
+    console.log("Resturant Card");
     const {resturantData} = props;
-    const {name, avgRating, cuisines, cloudinaryImageId} = resturantData?.info;
-    return (
-        <table className="resturant-card-table">
-            <tbody>
-                <tr className="resturant-image">
-                    <td>
-                        <img src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_264,h_288,c_fill/${cloudinaryImageId}`} alt="resturant-image" />
-                    </td>
-                </tr>
-                <tr className="resturant-name">
-                    <td>
-                    {name}
-                    </td>
-                </tr>
-                <tr className="resturant-rating">
-                    <td>
-                        {avgRating}
-                    </td>
-                </tr>
-                <tr className="resturant-cusines">
-                    <td>
-                        {cuisines.join(", ")}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    const {cloudinaryImageId,name,cuisines,avgRating,costForTwo,sla,aggregatedDiscountInfoV3} = resturantData?.info
+    return(
+        <div className = "leading-relaxed w-[18vw] h-[42vh] bg-[#edf5f4] m-4 rounded-xl p-1 shadow-lg border-2 shadow-gray-500 transition-transform duration-100 ease-in-out hover:cursor-pointer hover:scale-90 text-black overflow-hidden" >
+            <div class="relative border-transparent">
+            <img  className="w-72 h-32 object-cover rounded-xl pb-1" loading="lazy" src={CDN_URL + cloudinaryImageId}  alt = {name}/>
+            <div class="absolute bottom-0 rounded-xl left-0 right-0 h-1/3   bg-gradient-to-t from-black to-transparent "><span className="pl-2 text-start font-serif font-extrabold  text-[#edf5f4]  text-sm">{aggregatedDiscountInfoV3 ? aggregatedDiscountInfoV3.header + (" ") + aggregatedDiscountInfoV3.subHeader : ""}</span></div>
+            </div>
+                <div className="mx-2 my-1 overflow-hidden  ">
+                <h3 className="res-name font-bold text-[0.92rem] pb-1 ">{name}</h3>
+                <div className="flex ">
+                <img className="w-4 h-4 " src={STAR}/>
+                <div
+                className="text-[0.8rem] font-semibold px-1">
+                {avgRating}
+                </div>
+                <h4 className="text-[0.8rem] font-semibold px-1 ">{ "• " +  ("  ") + sla.slaString}</h4>
+                </div>
+                <h4 className="res-cuisines  "> {cuisines.join(", ")}</h4> 
+                
+                <h4 className="text-sm font-serif  font-bold text-gray-900 ">{costForTwo}</h4>
+                </div>
+        </div>
+ 
     )
 };
 
 // Higher order component
 
-export const OpenedResturant = (ResturantCard) => {
-    return (props) => {
-        return (
-            <div>
-                <label className="absolute bg-black text-white m-2 p-2 rounded-lg">Opened</label>
-                <ResturantCard {...props} />
-            </div>
-        )
-    }
-}
+// export const OpenedResturant = (ResturantCard) => {
+//     return (props) => {
+//         return (
+//             <div>
+//                 <label className="absolute bg-black text-white m-2 p-2 rounded-lg">Opened</label>
+//                 <ResturantCard {...props} />
+//             </div>
+//         )
+//     }
+// }
 
 export default ResturantCard;

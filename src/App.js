@@ -6,35 +6,57 @@ import ResturantMenu from "./components/ResturnatMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Error from "./components/Error";
 import CustomHooks from "./components/CustomHooks";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Cart from "./components/Cart";
 
 const AppLayout = () => {
     return (
-    <div id="app-layout">
-        <Header />
-        <Outlet />
-    </div>
+        <Provider store={appStore}>
+            <div id="app-layout">
+                <Header />
+                <Outlet />
+            </div>
+        </Provider>
 )};
 
 const appRouter = createBrowserRouter([
     {
-        path: '/',
-        element: <AppLayout />,
-        errorElement: <Error />,
-        children: [
+        path: "/",
+        element: <AppLayout/>,
+        children:[
             {
-                path: '/',
-                element: <ResturantCardContainer />,
+                path: "/",
+                element: <ResturantCardContainer/>,
             },
             {
-                path: '/resturants/:resturantId',
-                element: <ResturantMenu />,
+                path: "/about",
+                element: <About/>,
             },
             {
-                path: '/hook',
-                element: <CustomHooks />
-            }
-        ]
-
+                path: "/contact",
+                element: <Contact/>,
+            },
+            {
+                path: "/resturants/:resturantId",
+                element: <ResturantMenu/>
+            },
+            {
+                path: "/cart",
+                element: <Cart/>
+            },
+        ],
+        errorElement: <Error/>
+    },
+    {
+        path: "/about",
+        element: <About/>,
+    },
+    {
+        path: "/contact",
+        element: <Contact/>,
     }
 ])
 

@@ -1,24 +1,39 @@
-import { useState } from "react";
-import MenuItems from "./MenuItems";
+import { useState, useEffect } from "react";
+import arrowdown from "../utils/arrowdown.svg";
+import arrowup from "../utils/arrowup.svg";
+import MenuItems from "./menuItems";
 
-const ResturantCategory = ({data}) => {
+const ResturantCategory = ({data,showItems,setShowIndex}) => {
 
-    const [showItems,setShowItems] = useState(null);
+    const [selfExpand,setSelfExpand] = useState(false)
 
-    const handleClick = () => {
-        setShowItems(!showItems);
-    }
+    useEffect(() => {
+        if (!showItems) {
+          setSelfExpand(false);
+        }
+      }, [showItems]);
+    
+      const handleClick = () => {
+        if (selfExpand) {
+          setSelfExpand(false);
+          setShowIndex(null); // Close the accordion when clicked again
+        } else {
+          setShowIndex(); // Handle the first functionality
+          setSelfExpand(true);
+        }
+      };
 
     return (
-        <div>
-            <div className="w-6/12 mx-auto my-4 bg-gray-50 shadow-lg p-4" >
-                <div className="flex justify-between cursor-pointer" onClick={handleClick}>
-                    <span className="font-bold text-lg">{data.title} ({data.itemCards.length})</span>
-                    <span>^</span>
-                </div>
-            </div>
-         
-          {showItems && <MenuItems items={data.itemCards} />}
+        <div className="py-auto">
+        <div className="flex justify-between my-4 cursor-pointer "   onClick = {handleClick}>
+        
+            <span className="text-sm font-bold ml-2  my-auto">{data.title} ({data.itemCards.length})</span>
+            <img className ="w-4 my-auto" src={selfExpand && showItems ? arrowup : arrowdown} alt="arrow"/>
+        </div>
+        
+        {selfExpand && showItems && <MenuItems items={data.itemCards} />}
+    
+        <hr className=" border-4 shadow-lg"></hr>
         </div>
     )
 }
