@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import MenuItems from "./menuItems";
+import MenuItems from "./MenuItems";
 import { clearCart } from "../utils/cartSlice";
 import { useState } from "react";
 

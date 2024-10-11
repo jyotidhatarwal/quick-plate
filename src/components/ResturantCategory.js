@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import arrowdown from "../utils/arrowdown.svg";
 import arrowup from "../utils/arrowup.svg";
-import MenuItems from "./menuItems";
+import MenuItems from "./MenuItems";
 
 const ResturantCategory = ({data,showItems,setShowIndex}) => {
 
